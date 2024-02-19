@@ -1,0 +1,36 @@
+{%extends 'base.html'%}
+{% block content %}
+
+<h1> Cutomer Record : </h1>
+<br/>
+
+<div class="card">
+    <div class="card-header">
+        <td>{{ customer_record.first_name}} {{customer_record.last_name }}</td>
+
+    </div>
+    <div class="card-body">
+      <h5 class="card-title"></h5>
+        <table class="table table-borderless">
+            <tr>
+                <td>{{ customer_record.id  }}</td>
+                <td>{{ customer_record.created_at }}</td>
+                <td>{{ customer_record.address  }}</td>
+                <td>{{ customer_record.phone }}</td>
+                <td>{{ customer_record.city}}</td>
+                <td>{{ customer_record.state}}</td>
+                <td>{{ customer_record.email }}</td>
+            </tr>
+       
+          </table> <br/>      
+</div>
+</div>
+          <p><a href = "{%url 'dashboard'%}" class="btn btn-secondary">Previous</a></p>   
+          <p><a href = "{%url 'delete_record'  customer_record.id %}" class="btn btn-danger">Delete Record</a></p>   
+          <p><a href = "{%url 'update_record'   customer_record.id %}" class="btn btn-danger">Update Record</a></p>   
+
+  
+  
+
+
+{% endblock %}

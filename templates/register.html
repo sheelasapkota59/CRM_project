@@ -1,0 +1,34 @@
+{% extends 'base.html'%}
+{% block content %}
+
+<div class = "col-md-6 offset-md-3"> <!--to put everything in center:""-->
+<h2><p>Register</p></h2>
+
+    <br>
+
+    <form method = "POST" actions="{% url 'register' %}">
+        {% csrf_token %}
+        {% if form.errors %}
+			<div class="alert alert-warning alert-dismissible fade show" role="alert">
+			  Your Form Has Errors
+			  {% for field in form %}
+			  	{% if field.errors %}
+			  		{{ field.errors }}
+			  	{% endif %}
+			  {% endfor %}
+			  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+		{% endif %}
+
+       {{forms.as_p}}
+            
+            <button type="submit" class="btn btn-secondary">Register</button>
+            <br>
+            <p class="text-center">If you donot have an account, <a href="{% url 'login' %}">login</a> instead.</p>
+
+
+    </form>
+
+
+    
+{% endblock %}

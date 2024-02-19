@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block content %}
+<div class = "col-md-6 offset-md-3"> <!--to put everything in center:""-->
+
+
+
+{% if user.is_authenticated %}
+<h2>Welcome, {{ user.username }}!</h2>
+        {% if records %}
+            <table>
+                <!-- Table header here -->
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Created At</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Address</th>
+                        <th>Phone</th>
+                        <th>City</th>
+                        <th>State</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for record in records %}
+                        <!-- Render records for authenticated users -->
+                        <tr>
+                            <td>{{ record.id }}</td>
+                            <td>{{ record.created_at }}</td>
+                            <td>{{ record.first_name }}</td>
+                            <td>{{ record.last_name }}</td>
+                            <td>{{ record.address }}</td>
+                            <td>{{ record.phone }}</td>
+                            <td>{{ record.city }}</td>
+                            <td>{{ record.state }}</td>
+                            <td>{{ record.email }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No records available.</p>
+        {% endif %}
+
+
+{% else %}
+    <h2></h2>
+    <br>
+    <h3> login </h3>
+    <form method = "POST" actions ="{% url 'login' %}">
+        {% csrf_token %}
+
+        
+            <div class="mb-3">
+              <input type="text" class="form-control" name = "username"  , placeholder = "Username" required>
+            </div>
+
+            <div class="mb-3">
+              <input type="password" class="form-control" name = "password" , placeholder = "Password" required >
+            </div>
+            
+            <button type="submit" class="btn btn-secondary">Login</button>
+            <br>
+            <p class="text-center">If you donot have an account, <a href={% url 'register'%}>Register</a> instead.</p>
+
+    </form>
+</div>
+{% endif %}
+
+
+{% endblock %}

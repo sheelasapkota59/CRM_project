@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="p-3 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3">
+    <br>
+    {% comment %} Welcome to the ultimate fashion destination!, where style meets sophistication in every stitch. Our meticulously curated 
+    collection of fashion-forward pieces is designed to elevate your wardrobe and inspire confidence with every 
+    wear. Immerse yourself in a world of timeless elegance and contemporary flair, where each garment tells a unique 
+    story of craftsmanship and attention to detail.
+    
+    <br>
+    we're not just about clothing; we're about creating an immersive and personalized experience just for you. Elevate
+    your shopping journey by joining our vibrant community of fashion enthusiasts. 
+    🛍️ {% endcomment %}
+
+{% if user.is_authenticated %}
+{% comment %} <h2>Welcome, {{ user.username }}!</h2> {% endcomment %}
+<h2>Welcome to Dashboard</h2>
+<br/>
+        {% if records %}
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Created At</th>
+              <th>Name</th>
+              <th>Address</th>
+              <th>Phone</th>
+              <th>City</th>
+              <th>State</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody>
+        
+                    {% for record in records %}
+                        <!-- Render records for authenticated users -->
+                        <tr>
+                            <td>{{ record.id }}</td>
+                            <td>{{ record.created_at }}</td>
+                            <td>{{ record.first_name|add:" "|add:record.last_name }}</td>
+                            <td>{{ record.address }}</td>
+                            <td>{{ record.phone }}</td>
+                            <td>{{ record.city }}</td>
+                            <td>{{ record.state }}</td>
+                            <td>{{ record.email }}</td>
+                            <!--to get each customer record we are making url based on Pk inside all records-->
+                            <td><a href = {% url 'customer_record' record.id%}> {{record.id}}</td></a>
+                        </tr><br/>
+
+                        {% comment %} <p><a href = "{% url 'customer_record' customer_record.id %}" class="btn btn-secondary">Next</a></p>    {% endcomment %}
+
+
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        {% else %}
+            <p>No records available.</p>
+        {% endif %}
+
+{% else %}
+<p class="text-center">You have to login first <a href={% url 'login'%}>Login</a></p>
+
+
+
+
+
+{% comment %} </div> {% endcomment %}
+
+{% endif %}
+{% endblock %}
